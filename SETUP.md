@@ -172,6 +172,7 @@ yarn add markdown-it
 yarn add highlight.js
 
 yarn add markdown-it-emoji
+yarn add codeflask
 ```
 
 下記のコマンドでdevサーバを起動

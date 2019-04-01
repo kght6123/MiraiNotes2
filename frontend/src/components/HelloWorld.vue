@@ -7,6 +7,7 @@
     <button @click="apiPublic">Public API</button>
     <button @click="apiPrivate">Private API</button>
     <button @click="test">Test env</button>
+    <div id="my-selector"></div>
     <!-- markdown area -->
     <div style="display: flex;text-align: left;justify-content: space-around;">
       <div style="width: calc(50vw - 2em);">
@@ -21,6 +22,8 @@
 import axios from 'axios'
 import firebase from 'firebase'
 import MarkdownIt from 'markdown-it'
+
+import CodeFlask from 'codeflask';
 
 const DEMO_MARKDOWN_TEXT = `
 ---
@@ -274,6 +277,11 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  mounted () {
+    const flask = new CodeFlask('#my-selector', { language: 'js' })
+    flask.updateCode(DEMO_MARKDOWN_TEXT.toString())
+    flask.addLanguage('markdown')
   },
   data () {
     return {
