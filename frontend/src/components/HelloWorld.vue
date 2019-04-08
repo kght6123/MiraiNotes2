@@ -25,10 +25,7 @@ import MarkdownIt from 'markdown-it'
 
 import CodeFlask from 'codeflask'
 
-//import Prism from 'prismjs'
-
-require('prismjs/components/prism-markdown.js')
-require('prismjs/themes/prism.css')
+require('../modules/js/prism-markdown.js')
 
 const DEMO_MARKDOWN_TEXT = `
 ---
@@ -284,118 +281,7 @@ export default {
     msg: String
   },
   mounted () {
-    const flask = new CodeFlask('#my-selector', { language: 'markdown' })
-    // flask.addLanguage('markdown', {
-    //   'blockquote': {
-    //     // > ...
-    //     pattern: /^>(?:[\t ]*>)*/m,
-    //     alias: 'punctuation'
-    //   },
-    //   'code': [
-    //     {
-    //       // Prefixed by 4 spaces or 1 tab
-    //       pattern: /^(?: {4}|\t).+/m,
-    //       alias: 'keyword'
-    //     },
-    //     {
-    //       // `code`
-    //       // ``code``
-    //       pattern: /``.+?``|`[^`\n]+`/,
-    //       alias: 'keyword'
-    //     }
-    //   ],
-    //   'title': [
-    //     {
-    //       // title 1
-    //       // =======
-    //       // title 2
-    //       // -------
-    //       pattern: /\w+.*(?:\r?\n|\r)(?:==+|--+)/,
-    //       alias: 'important',
-    //       inside: {
-    //         punctuation: /==+$|--+$/
-    //       }
-    //     },
-    //     {
-    //       // # title 1
-    //       // ###### title 6
-    //       pattern: /(^\s*)#+.+/m,
-    //       lookbehind: true,
-    //       alias: 'important',
-    //       inside: {
-    //         punctuation: /^#+|#+$/
-    //       }
-    //     }
-    //   ],
-    //   'hr': {
-    //     // ***
-    //     // ---
-    //     // * * *
-    //     // -----------
-    //     pattern: /(^\s*)([*-])(?:[\t ]*\2){2,}(?=\s*$)/m,
-    //     lookbehind: true,
-    //     alias: 'punctuation'
-    //   },
-    //   'list': {
-    //     // * item
-    //     // + item
-    //     // - item
-    //     // 1. item
-    //     pattern: /(^\s*)(?:[*+-]|\d+\.)(?=[\t ].)/m,
-    //     lookbehind: true,
-    //     alias: 'punctuation'
-    //   },
-    //   'url-reference': {
-    //     // [id]: http://example.com "Optional title"
-    //     // [id]: http://example.com 'Optional title'
-    //     // [id]: http://example.com (Optional title)
-    //     // [id]: <http://example.com> "Optional title"
-    //     pattern: /!?\[[^\]]+\]:[\t ]+(?:\S+|<(?:\\.|[^>\\])+>)(?:[\t ]+(?:"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\((?:\\.|[^)\\])*\)))?/,
-    //     inside: {
-    //       'variable': {
-    //         pattern: /^(!?\[)[^\]]+/,
-    //         lookbehind: true
-    //       },
-    //       'string': /(?:"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\((?:\\.|[^)\\])*\))$/,
-    //       'punctuation': /^[\\[\\]!:]|[<>]/
-    //     },
-    //     alias: 'url'
-    //   },
-    //   'bold': {
-    //     // **strong**
-    //     // __strong__
-    //     // Allow only one line break
-    //     pattern: /(^|[^\\])(\*\*|__)(?:(?:\r?\n|\r)(?!\r?\n|\r)|.)+?\2/,
-    //     lookbehind: true,
-    //     inside: {
-    //       'punctuation': /^\*\*|^__|\*\*$|__$/
-    //     }
-    //   },
-    //   'italic': {
-    //     // *em*
-    //     // _em_
-    //     // Allow only one line break
-    //     pattern: /(^|[^\\])([*_])(?:(?:\r?\n|\r)(?!\r?\n|\r)|.)+?\2/,
-    //     lookbehind: true,
-    //     inside: {
-    //       'punctuation': /^[*_]|[*_]$/
-    //     }
-    //   },
-    //   'url': {
-    //     // [example](http://example.com "Optional title")
-    //     // [example] [id]
-    //     pattern: /!?\[[^\]]+\](?:\([^\s)]+(?:[\t ]+"(?:\\.|[^"\\])*")?\)| ?\[[^\]\n]*\])/,
-    //     inside: {
-    //       'variable': {
-    //         pattern: /(!?\[)[^\]]+(?=\]$)/,
-    //         lookbehind: true
-    //       },
-    //       'string': {
-    //         pattern: /"(?:\\.|[^"\\])*"(?=\)$)/
-    //       }
-    //     }
-    //   }
-    // });
+    const flask = new CodeFlask('#my-selector', { language: 'markdown', defaultTheme: true })
     flask.updateCode(DEMO_MARKDOWN_TEXT.toString())
     
   },
@@ -454,45 +340,4 @@ button
   margin 10px 0
   padding 10px
 
-// flask markdown
-.codeflask
-  color #4f559c
-
-.codeflask .token.punctuation
-  color #4a4a4a
-
-.codeflask .token.keyword
-  color #8500ff
-
-.codeflask .token.operator
-  color #ff5598
-
-.codeflask .token.string
-  color #41ad8f
-
-.codeflask .token.comment
-  color #9badb7
-
-.codeflask .token.function
-  color #8500ff
-
-.codeflask .token.boolean
-  color #8500ff
-
-.codeflask .token.number
-  color #8500ff
-
-.codeflask .token.selector
-  color #8500ff
-
-.codeflask .token.property
-  color #8500ff
-
-.codeflask .token.tag
-  color #8500ff
-
-.codeflask .token.attr-value
-  color #8500ff
-
-// flask markdown
 </style>
