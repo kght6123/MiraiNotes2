@@ -10,9 +10,9 @@
     <!-- markdown area -->
     <div style="display: flex;text-align: left;justify-content: space-around;">
       <div style="width: calc(50vw - 2em);">
-        <div id="my-selector"></div>
+        <textarea v-model="markdownText" placeholder="please input markdown text." style="width: 100%; height: 100%;"></textarea>
       </div>
-      <div v-html="markdownHtml" style="width: calc(50vw - 2em);"></div>
+      <div v-html="markdownHtml()" style="width: calc(50vw - 2em);"></div>
     </div>
   </div>
 </template>
@@ -21,10 +21,6 @@
 import axios from 'axios'
 import firebase from 'firebase'
 import MarkdownIt from 'markdown-it'
-
-import CodeFlask from 'codeflask'
-
-require('../modules/js/prism-markdown.js')
 
 const DEMO_MARKDOWN_TEXT = `
 ---
@@ -279,24 +275,12 @@ export default {
   props: {
     msg: String
   },
-  mounted () {
-    const flask = new CodeFlask(
-      '#my-selector',
-      {
-        language: 'markdown',
-        defaultTheme: false,
-        lineNumbers: true
-      })
-    flask.updateCode(DEMO_MARKDOWN_TEXT.toString())
-    flask.onUpdate((code) => {
-      this.markdownHtml = new MarkdownIt().render(code)
-    });
-  },
+  mounted () {},
   data () {
     return {
       apiMsg: 'API Message',
       name: firebase.auth().currentUser ? firebase.auth().currentUser.email : "",
-      markdownHtml: new MarkdownIt().render(DEMO_MARKDOWN_TEXT.toString())
+      markdownText: DEMO_MARKDOWN_TEXT.toString(),
     }
   },
   methods: {
@@ -319,6 +303,10 @@ export default {
       alert(process.env.VUE_APP_NAME) // test env
       alert(process.env.VUE_APP_FB_API_KEY)
     },
+    markdownHtml: function() {
+      const md = new MarkdownIt()
+      return md.render(this.markdownText)
+    }
   }
 }
 </script>
