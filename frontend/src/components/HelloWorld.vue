@@ -10,7 +10,7 @@
     <!-- markdown area -->
     <div style="display: flex;text-align: left;justify-content: space-around;">
       <div style="width: calc(50vw - 2em);">
-        <textarea v-model="markdownText" placeholder="please input markdown text." style="width: 100%; height: 100%;"></textarea>
+        <textarea v-model="markdownText" id="editor" placeholder="please input markdown text."></textarea>
       </div>
       <div v-html="markdownHtml()" style="width: calc(50vw - 2em);"></div>
     </div>
@@ -21,6 +21,12 @@
 import axios from 'axios'
 import firebase from 'firebase'
 import MarkdownIt from 'markdown-it'
+import CodeMirror from 'codemirror'
+
+require('codemirror/mode/markdown/markdown.js')
+require('codemirror/addon/selection/active-line.js')
+// require('codemirror/addon/search/match-highlighter.js"')
+require('codemirror/lib/codemirror.css')
 
 const DEMO_MARKDOWN_TEXT = `
 ---
@@ -275,12 +281,31 @@ export default {
   props: {
     msg: String
   },
-  mounted () {},
+  mounted () {
+    this.editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
+      lineNumbers: true,
+      mode: {
+        name: "markdown",
+        highlightFormatting: true
+      },
+      matchBrackets: true,
+      styleActiveLine: true,
+      // highlightSelectionMatches: {showToken: /\w/, annotateScrollbar: true},
+      lineWrapping: true,
+      viewportMargin: Infinity,
+    });
+    const vue = this;
+    this.editor.on("change", function(cm) { 
+      vue.markdownText = cm.getValue();
+    });
+    this.editor.setSize("100%","100%");
+  },
   data () {
     return {
       apiMsg: 'API Message',
       name: firebase.auth().currentUser ? firebase.auth().currentUser.email : "",
       markdownText: DEMO_MARKDOWN_TEXT.toString(),
+      editor: null,
     }
   },
   methods: {
