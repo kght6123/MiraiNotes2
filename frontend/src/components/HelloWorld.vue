@@ -7,13 +7,12 @@
     <button @click="apiPublic">Public API</button>
     <button @click="apiPrivate">Private API</button>
     <button @click="test">Test env</button>
-    <div id="my-selector"></div>
     <!-- markdown area -->
     <div style="display: flex;text-align: left;justify-content: space-around;">
       <div style="width: calc(50vw - 2em);">
-        <textarea v-model="markdownText" placeholder="please input markdown text." style="width: 100%; height: 100%;"></textarea>
+        <div id="my-selector"></div>
       </div>
-      <div v-html="markdownHtml()" style="width: calc(50vw - 2em);"></div>
+      <div v-html="markdownHtml" style="width: calc(50vw - 2em);"></div>
     </div>
   </div>
 </template>
@@ -281,15 +280,23 @@ export default {
     msg: String
   },
   mounted () {
-    const flask = new CodeFlask('#my-selector', { language: 'markdown', defaultTheme: true })
+    const flask = new CodeFlask(
+      '#my-selector',
+      {
+        language: 'markdown',
+        defaultTheme: false,
+        lineNumbers: true
+      })
     flask.updateCode(DEMO_MARKDOWN_TEXT.toString())
-    
+    flask.onUpdate((code) => {
+      this.markdownHtml = new MarkdownIt().render(code)
+    });
   },
   data () {
     return {
       apiMsg: 'API Message',
       name: firebase.auth().currentUser ? firebase.auth().currentUser.email : "",
-      markdownText: DEMO_MARKDOWN_TEXT.toString(),
+      markdownHtml: new MarkdownIt().render(DEMO_MARKDOWN_TEXT.toString())
     }
   },
   methods: {
@@ -312,10 +319,6 @@ export default {
       alert(process.env.VUE_APP_NAME) // test env
       alert(process.env.VUE_APP_FB_API_KEY)
     },
-    markdownHtml: function() {
-      const md = new MarkdownIt()
-      return md.render(this.markdownText)
-    }
   }
 }
 </script>
