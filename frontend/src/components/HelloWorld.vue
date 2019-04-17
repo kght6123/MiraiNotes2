@@ -335,7 +335,11 @@ export default {
     // init FroalaEditor.
     this.$preview = $('#preview');
     this.$preview.froalaEditor({
-      language: 'ja'
+      language: 'ja',
+      toolbarInline: true,
+      // charCounterCount: false,
+      toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '-', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'indent', 'outdent', '-', 'insertImage', 'insertLink', 'insertFile', 'insertVideo', 'undo', 'redo'],
+      toolbarVisibleWithoutSelection: true
     });
     this.$preview.on('froalaEditor.contentChanged', function (/*_e, _editor*/) {
       if(vm.activeEditor === editorType.FROALA || vm.activeEditor === editorType.NONE) vm.toMarkdown();
