@@ -286,6 +286,12 @@ It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
 :::
 `;
 
+const editorType = {
+  NONE: Symbol('NONE'),
+  CODEMIRROR: Symbol('CODEMIRROR'),
+  FROALA: Symbol('FROALA'),
+};
+
 export default {
   name: 'HelloWorld',
   props: {
@@ -297,6 +303,7 @@ export default {
       name: firebase.auth().currentUser ? firebase.auth().currentUser.email : "",
       editor: null,
       $preview: null,
+      activeEditor: editorType.NONE,
     }
   },
   mounted () {
@@ -313,9 +320,15 @@ export default {
       lineWrapping: true,
       viewportMargin: Infinity,
     });
-    const vue = this;
-    this.editor.on("change", function(/*cm*/) { 
-      vue.toHtml();
+    const vm = this;
+    this.editor.on("change", function(/*cm*/) {
+      if(vm.activeEditor === editorType.CODEMIRROR || vm.activeEditor === editorType.NONE) vm.toHtml();
+    });
+    this.editor.on("focus", function(/*cm*/) {
+      vm.activeEditor = editorType.CODEMIRROR;
+    });
+    this.editor.on("blur", function(/*cm*/) {
+      vm.activeEditor = editorType.NONE;
     });
     this.editor.setSize("100%","100%");
     
@@ -324,9 +337,14 @@ export default {
     this.$preview.froalaEditor({
       language: 'ja'
     });
-    const vm = this;
     this.$preview.on('froalaEditor.contentChanged', function (/*_e, _editor*/) {
-      vm.toMarkdown();
+      if(vm.activeEditor === editorType.FROALA || vm.activeEditor === editorType.NONE) vm.toMarkdown();
+    });
+    this.$preview.on('froalaEditor.focus', function (/*e, editor*/) {
+      vm.activeEditor = editorType.FROALA;
+    });
+    this.$preview.on('froalaEditor.blur', function (/*e, editor*/) {
+      vm.activeEditor = editorType.NONE;
     });
 
     // set init Markdown Text.
