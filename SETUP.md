@@ -172,8 +172,13 @@ yarn add markdown-it
 yarn add highlight.js
 
 yarn add markdown-it-emoji
-yarn add codeflask
+#yarn add codeflask
 yarn add codemirror
+yarn add to-mark
+#yarn add @editorjs/editorjs
+#yarn add @editorjs/header
+#yarn add @editorjs/list
+yarn add froala-editor
 ```
 
 下記のコマンドでdevサーバを起動

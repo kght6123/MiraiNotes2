@@ -7,12 +7,13 @@
     <button @click="apiPublic">Public API</button>
     <button @click="apiPrivate">Private API</button>
     <button @click="test">Test env</button>
+    <button @click="toMarkdown">To Markdown</button>
     <!-- markdown area -->
     <div style="display: flex;text-align: left;justify-content: space-around;">
       <div style="width: calc(50vw - 2em);">
-        <textarea v-model="markdownText" id="editor" placeholder="please input markdown text."></textarea>
+        <textarea id="editor" placeholder="please input markdown text."></textarea>
       </div>
-      <div v-html="markdownHtml()" style="width: calc(50vw - 2em);"></div>
+      <div id="preview" style="width: calc(50vw - 2em);"></div>
     </div>
   </div>
 </template>
@@ -22,11 +23,20 @@ import axios from 'axios'
 import firebase from 'firebase'
 import MarkdownIt from 'markdown-it'
 import CodeMirror from 'codemirror'
+import toMark from 'to-mark'
 
 require('codemirror/mode/markdown/markdown.js')
 require('codemirror/addon/selection/active-line.js')
 // require('codemirror/addon/search/match-highlighter.js"')
 require('codemirror/lib/codemirror.css')
+
+require('font-awesome/css/font-awesome.css')
+require('froala-editor/css/froala_editor.pkgd.css')
+require('froala-editor/css/froala_style.css')
+
+const $ = require('jquery/dist/jquery.js')
+require('froala-editor/js/froala_editor.pkgd.min.js')
+require('froala-editor/js/languages/ja.js')
 
 const DEMO_MARKDOWN_TEXT = `
 ---
@@ -281,7 +291,16 @@ export default {
   props: {
     msg: String
   },
+  data () {
+    return {
+      apiMsg: 'API Message',
+      name: firebase.auth().currentUser ? firebase.auth().currentUser.email : "",
+      editor: null,
+      $preview: null,
+    }
+  },
   mounted () {
+    // init CodeMirror.
     this.editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
       lineNumbers: true,
       mode: {
@@ -295,18 +314,23 @@ export default {
       viewportMargin: Infinity,
     });
     const vue = this;
-    this.editor.on("change", function(cm) { 
-      vue.markdownText = cm.getValue();
+    this.editor.on("change", function(/*cm*/) { 
+      vue.toHtml();
     });
     this.editor.setSize("100%","100%");
-  },
-  data () {
-    return {
-      apiMsg: 'API Message',
-      name: firebase.auth().currentUser ? firebase.auth().currentUser.email : "",
-      markdownText: DEMO_MARKDOWN_TEXT.toString(),
-      editor: null,
-    }
+    
+    // init FroalaEditor.
+    this.$preview = $('#preview');
+    this.$preview.froalaEditor({
+      language: 'ja'
+    });
+    const vm = this;
+    this.$preview.on('froalaEditor.contentChanged', function (/*_e, _editor*/) {
+      vm.toMarkdown();
+    });
+
+    // set init Markdown Text.
+    this.editor.setValue(DEMO_MARKDOWN_TEXT.toString());
   },
   methods: {
     signOut: function () {
@@ -328,9 +352,13 @@ export default {
       alert(process.env.VUE_APP_NAME) // test env
       alert(process.env.VUE_APP_FB_API_KEY)
     },
-    markdownHtml: function() {
+    toHtml: function() {
       const md = new MarkdownIt()
-      return md.render(this.markdownText)
+      this.$preview.froalaEditor('html.set', md.render(this.editor.getValue()))
+    },
+    toMarkdown: function() {
+      const html = this.$preview.froalaEditor('html.get', true)
+      this.editor.setValue(toMark(html))
     }
   }
 }
