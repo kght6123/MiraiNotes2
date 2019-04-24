@@ -34,9 +34,15 @@ require('font-awesome/css/font-awesome.css')
 require('froala-editor/css/froala_editor.pkgd.css')
 require('froala-editor/css/froala_style.css')
 
+require('froala-editor/css/third_party/font_awesome.min.css')
+
 const $ = require('jquery/dist/jquery.js')
 require('froala-editor/js/froala_editor.pkgd.min.js')
 require('froala-editor/js/languages/ja.js')
+
+require('froala-editor/js/plugins/fullscreen.min.js')
+
+require('froala-editor/js/third_party/font_awesome.min.js')
 
 const DEMO_MARKDOWN_TEXT = `
 ---
@@ -338,8 +344,11 @@ export default {
       language: 'ja',
       toolbarInline: true,
       // charCounterCount: false,
-      toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '-', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'indent', 'outdent', '-', 'insertImage', 'insertLink', 'insertFile', 'insertVideo', 'undo', 'redo'],
-      toolbarVisibleWithoutSelection: true
+      toolbarButtons: ['fullscreen', 'fontAwesome', '-', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '-', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'indent', 'outdent', '-', 'insertImage', 'insertLink', 'insertFile', 'insertVideo', 'undo', 'redo'],
+      toolbarVisibleWithoutSelection: true,
+      pastePlain: true,
+      // heightMin: 100,
+      // heightMax: 200
     });
     this.$preview.on('froalaEditor.contentChanged', function (/*_e, _editor*/) {
       if(vm.activeEditor === editorType.FROALA || vm.activeEditor === editorType.NONE) vm.toMarkdown();
