@@ -24,6 +24,7 @@ import firebase from 'firebase'
 import MarkdownIt from 'markdown-it'
 import CodeMirror from 'codemirror'
 import toMark from 'to-mark'
+import hljs from 'highlight.js'
 
 require('codemirror/mode/markdown/markdown.js')
 require('codemirror/addon/selection/active-line.js')
@@ -34,6 +35,10 @@ require('font-awesome/css/font-awesome.css')
 require('froala-editor/css/froala_editor.pkgd.css')
 require('froala-editor/css/froala_style.css')
 
+require('froala-editor/css/themes/dark.min.css')
+
+require('froala-editor/css/plugins/code_view.min.css')
+
 require('froala-editor/css/third_party/font_awesome.min.css')
 
 const $ = require('jquery/dist/jquery.js')
@@ -41,8 +46,12 @@ require('froala-editor/js/froala_editor.pkgd.min.js')
 require('froala-editor/js/languages/ja.js')
 
 require('froala-editor/js/plugins/fullscreen.min.js')
+require('froala-editor/js/plugins/code_view.min.js')
+require('froala-editor/js/plugins/code_beautifier.min.js')
 
 require('froala-editor/js/third_party/font_awesome.min.js')
+
+require('highlight.js/styles/xcode.css')
 
 const DEMO_MARKDOWN_TEXT = `
 ---
@@ -54,6 +63,10 @@ __Advertisement :)__
   i18n with plurals support and easy syntax.
 
 You will like those projects!
+
+\`\`\`html
+<p>Code Block Test.</p>
+\`\`\`
 
 ---
 
@@ -344,7 +357,18 @@ export default {
       language: 'ja',
       toolbarInline: true,
       // charCounterCount: false,
-      toolbarButtons: ['fullscreen', 'fontAwesome', '-', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '-', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'indent', 'outdent', '-', 'insertImage', 'insertLink', 'insertFile', 'insertVideo', 'undo', 'redo'],
+      codeMirror: CodeMirror,
+      codeMirrorOptions: {
+        indentWithTabs: true,
+        lineNumbers: true,
+        lineWrapping: true,
+        mode: 'text/html',
+        tabMode: 'indent',
+        tabSize: 2
+      },
+      theme: "dark",
+      toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '-', 'fontFamily', 'fontSize', 'color', 'inlineClass', 'inlineStyle', 'paragraphStyle', 'lineHeight', '-', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '-', 'emoticons', 'fontAwesome', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '-', 'print', 'getPDF', 'spellChecker', 'help', 'html', '-', 'undo', 'redo'],
+      // ['fullscreen', 'fontAwesome', '-', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '-', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'indent', 'outdent', '-', 'insertImage', 'insertLink', 'insertFile', 'insertVideo', 'undo', 'redo'],
       toolbarVisibleWithoutSelection: true,
       pastePlain: true,
       // heightMin: 100,
@@ -384,12 +408,56 @@ export default {
       alert(process.env.VUE_APP_FB_API_KEY)
     },
     toHtml: function() {
-      const md = new MarkdownIt()
+      const md = new MarkdownIt({
+        html:         true,         // Enable HTML tags in source
+        xhtmlOut:     false,        // Use '/' to close single tags (<br />).
+                                    // This is only for full CommonMark compatibility.
+        breaks:       true,         // Convert '\n' in paragraphs into <br>
+        langPrefix:   'language-',  // CSS language prefix for fenced blocks. Can be
+                                    // useful for external highlighters.
+        linkify:      true,         // Autoconvert URL-like text to links
+
+        // Enable some language-neutral replacement + quotes beautification
+        typographer:  true,
+
+        // Double + single quotes replacement pairs, when typographer enabled,
+        // and smartquotes on. Could be either a String or an Array.
+        //
+        // For example, you can use '«»„“' for Russian, '„“‚‘' for German,
+        // and ['«\xA0', '\xA0»', '‹\xA0', '\xA0›'] for French (including nbsp).
+        quotes: '“”‘’',
+
+        // Highlighter function. Should return escaped HTML,
+        // or '' if the source string is not changed and should be escaped externaly.
+        // If result starts with <pre... internal wrapper is skipped.
+        highlight: function (str, lang) {
+          if (lang && hljs.getLanguage(lang)) {
+            return '<pre><code data-language="'+lang+'" class="language-'+lang+'">' +
+                    hljs.highlight(lang, str).value +
+                    '</code></pre>';
+          }
+          return '<pre><code class="nohighlight">' + md.utils.escapeHtml(str) + '</code></pre>';
+        }
+      })
       this.$preview.froalaEditor('html.set', md.render(this.editor.getValue()))
     },
     toMarkdown: function() {
       const html = this.$preview.froalaEditor('html.get', true)
-      this.editor.setValue(toMark(html))
+      const docmentsTemp = new DOMParser().parseFromString(html , "text/html");
+
+      // eslint-disable-next-line
+      // console.log(html)
+      $("pre code[data-language]", docmentsTemp).each(function(index, element){
+        // eslint-disable-next-line
+        // console.log(index + ':' + $(element).text())
+        //html = html.replace(/(<pre><code class="language-[a-z]+" data-language="[a-z]+">).+(<\/code><\/pre>)/, "$1"+$(element).text()+"$2")
+        $(element).html($(element).text().replace(/^\n/,''))
+        // <pre><code class="language-html" data-language="html"></code></pre>
+      })
+      // eslint-disable-next-line
+      // console.log(docmentsTemp.body.innerHTML)
+      const md = toMark(docmentsTemp.body.innerHTML/*html*//*.replace(/<span class="hljs-[a-z]+">(.+)<\/span>/g, "$1")*/)
+      this.editor.setValue(md)
     }
   }
 }
