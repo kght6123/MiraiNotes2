@@ -26,4 +26,6 @@ $ yarn generate
 $ yarn deploy
 ```
 
+https://kght6123.github.io/MiraiNotes2/
+
 For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).

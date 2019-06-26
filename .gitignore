@@ -86,3 +86,7 @@ sw.*
 
 # Mac OSX
 .DS_Store
+
+# local env files
+env.local.js
+env.*.local.js

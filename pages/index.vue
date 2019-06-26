@@ -21,6 +21,36 @@
         </a>
       </div>
     </div>
+    <div>
+      <modal
+        name="hello-world"
+        :resizable="true"
+        :adaptive="true"
+        :draggable="true"
+        :scrollable="true"
+        height="auto"
+      >
+        <div class="modal-header">
+          <div class="modal-header-icon" @click="hide">
+            <font-awesome-icon
+              icon="times"
+              size="2x"
+              :style="{ color: 'rgba(0,0,0,0.50)' }"
+            />
+          </div>
+        </div>
+        <iframe
+          id="feedback"
+          src="https://docs.google.com/forms/d/e/1FAIpQLSeB5JTxpbVDRKkkTlpatHvzysWQAa1RHBIdSvGsygvxhyhIwQ/viewform?embedded=true"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0"
+        />
+      </modal>
+      <button @click="show">
+        Show modal!!!
+      </button>
+    </div>
   </div>
 </template>
 
@@ -30,6 +60,14 @@ import Logo from '~/components/Logo.vue'
 export default {
   components: {
     Logo
+  },
+  methods: {
+    show() {
+      this.$modal.show('hello-world')
+    },
+    hide() {
+      this.$modal.hide('hello-world')
+    }
   }
 }
 </script>
@@ -43,7 +81,6 @@ export default {
   align-items: center;
   text-align: center;
 }
-
 .title {
   font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -53,7 +90,6 @@ export default {
   color: #35495e;
   letter-spacing: 1px;
 }
-
 .subtitle {
   font-weight: 300;
   font-size: 42px;
@@ -61,8 +97,29 @@ export default {
   word-spacing: 5px;
   padding-bottom: 15px;
 }
-
 .links {
   padding-top: 15px;
+}
+.v--modal-overlay[data-modal='hello-world'] {
+  backdrop-filter: blur(10px);
+}
+.v--modal {
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: none;
+}
+.modal-header {
+  position: relative;
+  height: 2em;
+}
+.modal-header-icon {
+  position: absolute;
+  top: 0.15em;
+  right: 1.2em;
+  width: 1em;
+  height: 1em;
+}
+#feedback {
+  width: 100%;
+  height: 75vh;
 }
 </style>
