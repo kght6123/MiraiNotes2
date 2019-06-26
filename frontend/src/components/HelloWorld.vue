@@ -451,7 +451,9 @@ export default {
         // eslint-disable-next-line
         // console.log(index + ':' + $(element).text())
         //html = html.replace(/(<pre><code class="language-[a-z]+" data-language="[a-z]+">).+(<\/code><\/pre>)/, "$1"+$(element).text()+"$2")
-        $(element).html($(element).text().replace(/^\n/,''))
+        // eslint-disable-next-line
+        console.log($(element).text().replace(/^\n/gm, ''))
+        $(element).html($(element).text().replace(/^\n/gm, ''))
         // <pre><code class="language-html" data-language="html"></code></pre>
       })
       // eslint-disable-next-line
