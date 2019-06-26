@@ -19,4 +19,11 @@ $ yarn start
 $ yarn generate
 ```
 
+## Deploy For GitHub Pages
+
+```bash
+$ yarn generate
+$ yarn deploy
+```
+
 For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
