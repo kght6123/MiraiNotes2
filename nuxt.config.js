@@ -48,11 +48,10 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    {
-      src: '@/plugins/localStorage.js',
-      ssr: false
-    },
-    '~/plugins/vue-js-modal',
+    // {
+    //   src: '~/plugins/localStorage.js',
+    //   ssr: false
+    // },
     '~/plugins/fontawesome.js'
   ],
   /*
@@ -65,16 +64,16 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/eslint-module',
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
+    // Doc: https://github.com/nuxt-community/localforage-module
+    '@nuxtjs/localforage'
   ],
   bootstrapVue: {
     bootstrapCSS: false, // Or `css: false`
     bootstrapVueCSS: false // Or `bvCSS: false`
   },
   styleResources: {
-    sass: [
-      '~/assets/scss/custom.scss'
-    ]
+    sass: ['~/assets/scss/custom.scss']
   },
   /*
    ** Axios module configuration
