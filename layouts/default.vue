@@ -1,6 +1,17 @@
 <template>
-  <div>
+  <div class="mw-100 w-100 mhv-100 hv-100 of-hidden d-flex flex-column">
     <nuxt />
+    <div
+      class="sidebar-fotter bg-info mw-100 w-100 d-flex flex-row justify-content-between"
+    >
+      <div class="flex-shrink-0 text-left pl-2 text-light">
+        Welcome!!!
+      </div>
+      <div class="flex-shrink-1 text-center pr-1 pl-1 text-light" />
+      <div class="flex-shrink-0 text-right pr-2 text-light">
+        MiraiNotes&nbsp;1.0
+      </div>
+    </div>
   </div>
 </template>
 

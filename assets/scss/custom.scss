@@ -3,13 +3,33 @@ $enable-respond-font-sizes: true;
   
 // 行間にゆとりを持たせる
 $headings-line-height: 1.5;
-$line-height-base: 1.65;
+$line-height-base: 1.6;
+
+// Body
+$body-bg: #f8fafc;
+
+// Typography
+// $font-size-base: 0.9rem;
+
+// Colors
+$blue: #3490dc;
+$indigo: #6574cd;
+$purple: #9561e2;
+$pink: #f66D9b;
+$red: #e3342f;
+$orange: #f6993f;
+$yellow: #ffed4a;
+$green: #38c172;
+$teal: #4dc0b5;
+$cyan: #6cb2eb;
 
 * {
   // 字間にゆとりを持たせる
   letter-spacing: .1em !important;
   // 文字の均等割り付けをデフォルトにする
   text-align: justify;
+  // レスポンシブフォントサイズ
+  font-size: calc(100vmin / 26.5);
 }
 
 // 文字色の調和をとる
@@ -61,6 +81,80 @@ $font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Y
   popover {
     font-family: Verdana, Meiryo, sans-serif;
   }
+}
+
+// IE hack
+html {
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+@-ms-viewport {
+  width: device-width;
+  initial-scale: 1;
+}
+
+.content {
+  text-align: center;
+}
+.title {
+  font-size: 84px;
+}
+.links > a {
+  color: #636b6f;
+  padding: 0 25px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .1rem;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.m-b-md {
+  margin-bottom: 30px;
+}
+.te-switch-button.markdown {
+  font-size: 0.85em;
+}
+
+/* @mdi/font Bootstrap Helper CSS https://dev.materialdesignicons.com/getting-started/bootstrap */
+.alert.mdi::before,
+.breadcrumb .mdi::before,
+.btn.mdi::before,
+.card-title.mdi::before,
+.card-subtitle.mdi::before,
+.card-link.mdi::before,
+.dropdown-item.mdi::before,
+.list-group-item.mdi::before,
+.nav-link.mdi::before {
+  font-size: 1.25em;
+  line-height: initial;
+  position: relative;
+  top: 0.09rem;
+}
+.alert.mdi::before,
+.breadcrumb .mdi:not(:empty)::before,
+.btn.mdi:not(:empty)::before,
+.card-title.mdi:not(:empty)::before,
+.card-subtitle.mdi:not(:empty)::before,
+.card-link.mdi:not(:empty)::before,
+.dropdown-item.mdi:not(:empty)::before,
+.nav-link.mdi:not(:empty)::before {
+  margin-right: 0.25rem;
+}
+.list-group-item.mdi:not(:empty)::before {
+  margin-right: 0.5rem;
+}
+.dropdown-item.mdi:not(:empty)::before {
+  margin-left: -0.75rem;
+}
+.alert.mdi::before,
+.list-group-item.mdi:not(:empty)::before {
+  margin-left: -0.5rem;
+}
+.modal-title.mdi::before {
+  font-size: 1.5em;
+  line-height: 0.5;
+  position: relative;
+  top: 0.26rem;
+  margin-right: 0.5rem;
 }
 
 @import 'bootstrap/scss/bootstrap.scss';

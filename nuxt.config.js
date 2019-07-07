@@ -13,12 +13,17 @@ export default {
     title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      {
+        name: 'viewport',
+        content:
+          'width=device-width,maximum-scale=1.0,minimum-scale=0.5,user-scalable=yes,initial-scale=1.0,shrink-to-fit=no'
+      },
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || ''
+        content: process.env.npm_package_description || 'Mirai Note Homepage.'
       },
+      { name: 'author', content: 'kght6123' },
       { hid: 'og:site_name', property: 'og:site_name', content: 'サイト名' },
       { hid: 'og:type', property: 'og:type', content: 'website' },
       { hid: 'og:url', property: 'og:url', content: 'https://example.com' },
@@ -43,7 +48,17 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['@fortawesome/fontawesome-svg-core/styles.css'],
+  css: [
+    '@fortawesome/fontawesome-svg-core/styles.css',
+    'codemirror/lib/codemirror.css',
+    'tui-editor/dist/tui-editor.css',
+    'tui-editor/dist/tui-editor-contents.css',
+    '@mdi/font/css/materialdesignicons.css',
+    'open-iconic/font/css/open-iconic-bootstrap.css',
+    '~/assets/css/halocontext/jquery.halocontext.css',
+    '~/assets/css/sidebar/bootstrap-sidebar.css',
+    '~/assets/scss/custom.scss'
+  ],
   /*
    ** Plugins to load before mounting the App
    */
@@ -73,7 +88,14 @@ export default {
     bootstrapVueCSS: false // Or `bvCSS: false`
   },
   styleResources: {
-    sass: ['~/assets/scss/custom.scss']
+    sass: ['~/assets/scss/*.scss']
+  },
+  /*
+   ** PWA manifest
+   */
+  manifest: {
+    name: 'nuxt2-gae-sample',
+    lang: 'ja'
   },
   /*
    ** Axios module configuration

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html {{ HTML_ATTRS }}>
+  <head {{ HEAD_ATTRS }}>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {{ HEAD }}
+  </head>
+  <body {{ BODY_ATTRS }} data-spy="scroll" data-target=".floating-2" data-offset="60" class="of-hidden">
+    <div id="slide-modal" class="sidebar-modal d-none">
+      <div class="mwv-75 mhv-75 wv-75 hv-75">
+        <div class="text-right"><i class="close mdi mdi-close text-light"></i></div>
+        <iframe class="border-0 mw-100 w-100 mh-100 h-100 shadow-lg"></iframe>
+      </div>
+    </div>
+    <div class="sidebar-material-ctrl">
+      <button type="button" class="btn btn-secondary shadow text-center align-middle m-0 p-0">
+        <i class="oi oi-fullscreen-enter"></i>
+        <i class="oi oi-fullscreen-exit"></i>
+      </button>
+    </div>
+    <div class="sidebar-window-ctrl">
+      <button type="button" class="btn text-center align-middle m-0 p-0 text-light bg-transparent">
+        <i class="oi oi-fullscreen-enter text-dark"></i>
+        <i class="oi oi-fullscreen-exit"></i>
+      </button>
+    </div>
+    {{ APP }}
+    <input type="hidden" id="delegate-markdown" />
+  </body>
+</html>
