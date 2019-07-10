@@ -2,7 +2,8 @@ module.exports = {
   root: true,
   env: {
     browser: true,
-    node: true
+    node: true,
+    jquery: true
   },
   parserOptions: {
     parser: 'babel-eslint'
@@ -22,5 +23,10 @@ module.exports = {
     'nuxt/no-cjs-in-config': 'off',
     "no-console": "off",
     "arrow-parens": "off",
+    "eslint-disable-next-line": "off",
+    "vue/html-self-closing": "off",
+    "vue/max-attributes-per-line": "off",
+    "vue/html-closing-bracket-newline": "off",
+    "vue/html-indent": "off"
   }
 }

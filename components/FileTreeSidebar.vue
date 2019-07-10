@@ -1,54 +1,99 @@
 <template>
   <div class="w-100 mhp-100 hp-100">
-    <!-- 新規ファイル名入力 モーダル
+    <!-- 新規ファイル名入力 モーダル -->
     <div id="new-file">
-      <div class="dropdown-menu bg-dark text-light shadow p-3" style="width: 13em;z-index: 1024;">
+      <div
+        class="dropdown-menu bg-dark text-light shadow p-3"
+        style="width: 13em;z-index: 1024;"
+      >
         <div class="input-group">
-          <input type="text" class="form-control bg-dark text-light" v-model="newFileName" placeholder="新しいファイル名を入力">
+          <input
+            v-model="newFileName"
+            type="text"
+            class="form-control bg-dark text-light"
+            placeholder="新しいファイル名を入力"
+          />
           <div class="input-group-append">
-            <button type="button" class="btn btn-success" v-on:click="newfile"><i class="oi oi-check"></i></button>
+            <button type="button" class="btn btn-success" @click="newfile">
+              <i class="oi oi-check" />
+            </button>
           </div>
         </div>
         <div class="input-group">
-          <textarea class="form-control bg-dark text-light" v-model="newFileMarkdownText" placeholder="マークダウンを入力（任意）"></textarea>
+          <textarea
+            v-model="newFileMarkdownText"
+            class="form-control bg-dark text-light"
+            placeholder="マークダウンを入力（任意）"
+          />
         </div>
       </div>
     </div>
-    !-- 新規フォルダ名入力 モーダル --
+    <!-- 新規フォルダ名入力 モーダル -->
     <div id="new-folder">
-      <div class="dropdown-menu bg-dark text-light shadow p-3" style="width: 12em;z-index: 1024;">
+      <div
+        class="dropdown-menu bg-dark text-light shadow p-3"
+        style="width: 12em;z-index: 1024;"
+      >
         <div class="input-group">
-          <input type="text" class="form-control bg-dark text-light" v-model="newFolderName" placeholder="新しいフォルダ名を入力">
+          <input
+            v-model="newFolderName"
+            type="text"
+            class="form-control bg-dark text-light"
+            placeholder="新しいフォルダ名を入力"
+          />
           <div class="input-group-append">
-            <button type="button" class="btn btn-success" v-on:click="newfolder"><i class="oi oi-check"></i></button>
+            <button type="button" class="btn btn-success" @click="newfolder">
+              <i class="oi oi-check" />
+            </button>
           </div>
         </div>
       </div>
     </div>
-    !-- ツールバー --
-    <div class="sidebar-toolbar btn-group sticky-top text-light shadow w-100" role="group">
-      <button class="btn btn-dark text-center align-middle" v-on:click="backHome" v-bind:class="{ 'disabled': isHome() }">
-        <i class="mdi mdi-home-outline"></i>
+    <!-- ツールバー -->
+    <div
+      class="sidebar-toolbar btn-group sticky-top text-light shadow w-100"
+      role="group"
+    >
+      <button
+        class="btn btn-dark text-center align-middle"
+        :class="{ disabled: isHome() }"
+        @click="backHome"
+      >
+        <i class="mdi mdi-home-outline" />
       </button>
-      <button class="btn btn-dark text-center align-middle" v-on:click="backFolder" v-bind:class="{ 'disabled': isHome() }">
-        <i class="mdi mdi-keyboard-backspace"></i>
+      <button
+        class="btn btn-dark text-center align-middle"
+        :class="{ disabled: isHome() }"
+        @click="backFolder"
+      >
+        <i class="mdi mdi-keyboard-backspace" />
       </button>
-      <button class="btn btn-dark text-center align-middle" v-on:click="refresh">
-        <i class="mdi mdi-refresh"></i>
+      <button class="btn btn-dark text-center align-middle" @click="refresh">
+        <i class="mdi mdi-refresh" />
       </button>
-      <button class="btn btn-dark text-center align-middle" role="button" data-toggle="dropdown" data-target="#new-folder">
-        <i class="mdi mdi-folder-outline"></i>
-        <i class="mdi mdi-tr mdi-plus-circle  text-info font-weight-bold"></i>
+      <button
+        class="btn btn-dark text-center align-middle"
+        role="button"
+        data-toggle="dropdown"
+        data-target="#new-folder"
+      >
+        <i class="mdi mdi-folder-outline" />
+        <i class="mdi mdi-tr mdi-plus-circle  text-info font-weight-bold" />
       </button>
-      <button class="btn btn-dark text-center align-middle" role="button" data-toggle="dropdown" data-target="#new-file">
-        <i class="mdi mdi-file-outline"></i>
-        <i class="mdi mdi-tr mdi-plus-circle  text-info font-weight-bold"></i>
+      <button
+        class="btn btn-dark text-center align-middle"
+        role="button"
+        data-toggle="dropdown"
+        data-target="#new-file"
+      >
+        <i class="mdi mdi-file-outline" />
+        <i class="mdi mdi-tr mdi-plus-circle  text-info font-weight-bold" />
       </button>
     </div>
-    !-- ファイルツリー --
+    <!-- ファイルツリー -->
     <div class="sticky-top of-y-auto mhp-100 hp-100 pl-3 pt-3 pb-3">
-      <ul class="list-unstyled list-tree" v-if="listfiles.length">
-        !--li>
+      <ul v-if="listfiles.length" class="list-unstyled list-tree">
+        <!--li>
           <div class="btn-group dropdown w-100">
             <a href="#fileTree1" class="text-light dropdown-toggle dropdown-toggle-split open"
               role="button" data-toggle="collapse" aria-expanded="false"></a>
@@ -164,28 +209,55 @@
               </div>
             </li>
           </ul>
-        </li--
+        </li-->
         <li>
           <div class="btn-group dropdown w-100">
-            !--a class="text-light dropdown-toggle dropdown-toggle-split file"></a--!-- 上のclassのpl-3は暫定そち --
-            <a href="#" class="nav-link text-primary w-100" v-on:click="showUserFile" v-bind:class="{ 'active' : !viewDriveFileId }">
-              <i class="oi oi-pin"></i>
+            <!--a class="text-light dropdown-toggle dropdown-toggle-split file"></a--><!-- 上のclassのpl-3は暫定そち -->
+            <a
+              href="#"
+              class="nav-link text-primary w-100"
+              :class="{ active: !viewDriveFileId }"
+              @click="showUserFile"
+            >
+              <i class="oi oi-pin" />
               Quick.md
             </a>
           </div>
         </li>
-        <li v-for="file in listfiles" v-bind:key="file.id">
-          <div class="btn-group dropdown w-100" v-if="file.mimeType == folderMimeType || file.mimeType == markdownMimeType">
-            !--a class="text-light dropdown-toggle dropdown-toggle-split file"></a--!-- 上のclassのpl-3は暫定そち --
-            <a href="#" class="nav-link text-light w-100" v-on:click="file.mimeType == folderMimeType ? showFolder($event, file.id) : showFile($event, file.id)" v-bind:class="{ 'active' : viewDriveFileId == file.id }">
-              <i class="oi" v-bind:class="[file.mimeType == folderMimeType ? 'oi-folder' : 'oi-file' ]"></i>
+        <li v-for="file in listfiles" :key="file.id">
+          <div
+            v-if="
+              file.mimeType == folderMimeType ||
+                file.mimeType == markdownMimeType
+            "
+            class="btn-group dropdown w-100"
+          >
+            <!--a class="text-light dropdown-toggle dropdown-toggle-split file"></a--><!-- 上のclassのpl-3は暫定そち -->
+            <a
+              href="#"
+              class="nav-link text-light w-100"
+              :class="{ active: viewDriveFileId == file.id }"
+              @click="
+                file.mimeType == folderMimeType
+                  ? showFolder($event, file.id)
+                  : showFile($event, file.id)
+              "
+            >
+              <i
+                class="oi"
+                :class="[
+                  file.mimeType == folderMimeType ? 'oi-folder' : 'oi-file'
+                ]"
+              />
               {{ file.name }}
             </a>
           </div>
         </li>
       </ul>
-      <p v-else class="p-3 text-light">No files!!!</p>
-    </div>-->
+      <p v-else class="p-3 text-light">
+        No files!!!
+      </p>
+    </div>
   </div>
 </template>
 
@@ -193,19 +265,30 @@
 // import { out_console } from '../axios/axios-errors';
 
 export default {
-  // data: function() {
-  //   return {
-  //     listfiles: [],
-  //     nextPageToken: null,
-  //     fieldNames: "id,name,parents,webContentLink,webViewLink,description,mimeType,kind,iconLink,size,thumbnailLink",
-  //     folderMimeType: "application/vnd.google-apps.folder",
-  //     markdownMimeType: "text/markdown",
-  //     directories: ["root"],
-  //     newFileName: "file.md",
-  //     newFolderName: "folder",
-  //     newFileMarkdownText: "",
-  //   };
-  // },
+  data: () => {
+    return {
+      listfiles: [],
+      nextPageToken: null,
+      fieldNames:
+        'id,name,parents,webContentLink,webViewLink,description,mimeType,kind,iconLink,size,thumbnailLink',
+      folderMimeType: 'application/vnd.google-apps.folder',
+      markdownMimeType: 'text/markdown',
+      directories: ['root'],
+      newFileName: 'file.md',
+      newFolderName: 'folder',
+      newFileMarkdownText: ''
+    }
+  },
+  methods: {
+    isHome() {
+      return true
+    },
+    newfile(event) {},
+    newfolder(event) {},
+    backHome(event) {},
+    backFolder(event) {},
+    refresh(event) {}
+  }
   // computed: {
   //   gtoken () {
   //     return this.$store.state.gtoken;

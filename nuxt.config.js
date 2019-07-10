@@ -67,7 +67,9 @@ export default {
     //   src: '~/plugins/localStorage.js',
     //   ssr: false
     // },
-    '~/plugins/fontawesome.js'
+    '~/plugins/fontawesome.js',
+    '~/plugins/validate.js',
+    { src: '~plugins/bootstrap.js', ssr: false }
   ],
   /*
    ** Nuxt.js modules
@@ -94,7 +96,7 @@ export default {
    ** PWA manifest
    */
   manifest: {
-    name: 'nuxt2-gae-sample',
+    name: 'mirai-notes2',
     lang: 'ja'
   },
   /*

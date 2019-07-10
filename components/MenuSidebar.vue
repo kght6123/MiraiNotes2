@@ -1,37 +1,71 @@
 <template>
   <div class="sticky-top">
-    <!--<<ul class="list-unstyled mt-5">
+    <ul class="list-unstyled mt-5">
       <li>
-        <a id="link-login" href="#" class="text-light" data-toggle="modal" data-target="#login-modal">
-          <i class="oi oi-person"></i><i class="mdi mdi-tr font-weight-bold" v-bind:class="{ 'mdi-check-circle': user, 'text-success': user, 'mdi-close-circle': !user, 'text-danger': !user }"></i>
+        <a
+          id="link-login"
+          href="#"
+          class="text-light"
+          data-toggle="modal"
+          data-target="#login-modal"
+        >
+          <i class="oi oi-person" /><i
+            class="mdi mdi-tr font-weight-bold"
+            :class="{
+              'mdi-check-circle': user,
+              'text-success': user,
+              'mdi-close-circle': !user,
+              'text-danger': !user
+            }"
+          />
           ログイン
         </a>
       </li>
       <li>
-        <a id="link-login-google" href="#" class="text-light" v-bind:class="{ 'd-none': !user }" data-toggle="modal" data-target="#auth-modal">
-          <i class="mdi mdi-google"></i><i class="mdi mdi-tr font-weight-bold" v-bind:class="{ 'mdi-check-circle': gtoken, 'text-success': gtoken, 'mdi-close-circle': !gtoken, 'text-danger': !gtoken }"></i>
+        <a
+          id="link-login-google"
+          href="#"
+          class="text-light"
+          :class="{ 'd-none': !user }"
+          data-toggle="modal"
+          data-target="#auth-modal"
+        >
+          <i class="mdi mdi-google" /><i
+            class="mdi mdi-tr font-weight-bold"
+            :class="{
+              'mdi-check-circle': gtoken,
+              'text-success': gtoken,
+              'mdi-close-circle': !gtoken,
+              'text-danger': !gtoken
+            }"
+          />
           Google
         </a>
       </li>
-      !--li>
-        <a href="{{ url('/') }}" class="text-light active">
-          <i class="oi oi-home"></i>
-          ホーム
-        </a>
-      </li--
       <li>
-        <a href="#" class="text-light sidebar-toggle" v-bind:class="{ 'd-none': !gtoken, 'reserve active': gtoken }" data-target="#filetree">
-          <i class="mdi mdi-folder-multiple-outline"></i>
+        <nuxt-link to="/" class="text-light active" no-prefetch>
+          <i class="oi oi-home" />
+          ホーム
+        </nuxt-link>
+      </li>
+      <li>
+        <a
+          href="#"
+          class="text-light sidebar-toggle"
+          :class="{ 'd-none': !gtoken, 'reserve active': gtoken }"
+          data-target="#filetree"
+        >
+          <i class="mdi mdi-folder-multiple-outline" />
           フォルダ
         </a>
       </li>
-      !--li>
+      <!--li>
         <a href="#" class="text-light sidebar-toggle" data-target="#headline">
           <i class="oi oi-list"></i>
           目次
         </a>
-      </li--
-      !--li>
+      </li-->
+      <!--li>
         <a href="#" class="text-light sidebar-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="oi oi-question-mark"></i>
           問合せ
@@ -50,8 +84,8 @@
             <button type="submit" class="btn btn-primary">送信</button>
           </form>
         </div>!- /.dropdown-menu -
-      </li--
-    </ul>-->
+      </li-->
+    </ul>
   </div>
 </template>
 
@@ -62,7 +96,10 @@ export default {
   //     return this.$store.state.gtoken;
   //   },
   // },
-  // props: ['user'/*,'gtoken'*/],
+  props: {
+    user: { type: Object, default: null },
+    gtoken: { type: String, default: null }
+  }
 }
 </script>
 
