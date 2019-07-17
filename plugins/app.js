@@ -2,9 +2,6 @@
 
 // require('./bootstrap');
 
-// require('./halocontext/jquery.halocontext');
-// require('./sidebar/bootstrap-sidebar');
-
 // // import es6 promise
 // import 'es6-promise/auto';
 
@@ -14,7 +11,8 @@
 // // require Vue
 // window.Vue = require('vue');
 
-// // import Vuex
+// import Vuex
+// import Vue from 'vue'
 // import Vuex from 'vuex';
 // window.Vue.use(Vuex);
 
@@ -23,31 +21,40 @@
 
 // // use axios
 // import { axios } from './axios/axios-base';
-// import { out_console } from './axios/axios-errors';
+import { outConsole } from '~/assets/js/axios/axios-errors'
 
-// // Add a request interceptor
-// axios.interceptors.request.use(
-//   function (config) {
-//     console.log('Request OK config.', config);
-//     return Promise.resolve(config);
-//   },
-//   function (error) {
-//     console.error('Request Error status.', error);
-//     return Promise.reject(error);
-// });
+require('~/assets/js/halocontext/jquery.halocontext')
+require('~/assets/js/sidebar/bootstrap-sidebar')
 
-// // Add a response interceptor
-// axios.interceptors.response.use(
-//   function (response) {
-//     // Do something with response data
-//     console.log('Response OK status.', response.status);
-//     return Promise.resolve(response);// responseで返す正常なPromise処理を返す
-//   },
-//   function (error) {
-//     // Do something with response error
-//     console.error('Response Error status.', error.response.status);
-//     return Promise.reject(error);// errorで返す異常なPromise処理を返す
-// });
+export default (app) => {
+  // Add a request interceptor
+  app.$axios.interceptors.request.use(
+    (config) => {
+      console.log('Request OK config.', config)
+      return Promise.resolve(config)
+    },
+    (error) => {
+      console.error('Request Error status.', error)
+      outConsole(error, 'global')
+      return Promise.reject(error)
+    }
+  )
+
+  // Add a response interceptor
+  app.$axios.interceptors.response.use(
+    (response) => {
+      // Do something with response data
+      console.log('Response OK status.', response.status)
+      return Promise.resolve(response) // responseで返す正常なPromise処理を返す
+    },
+    (error) => {
+      // Do something with response error
+      console.error('Response Error status.', error.response.status)
+      outConsole(error, 'global')
+      return Promise.reject(error) // errorで返す異常なPromise処理を返す
+    }
+  )
+}
 
 // const updateDelegateMarkdown = function() {
 //   $("#delegate-markdown").val(store.state.editor.getMarkdown());

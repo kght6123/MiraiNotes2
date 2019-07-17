@@ -1,5 +1,5 @@
 /* eslint no-undef:0,space-before-function-paren:0,camelcase:0 */
-export const out_console = function(error, name) {
+export const outConsole = function(error, name) {
   console.error('ERROR!! occurred in Backend. (' + name + ')', error)
   // catch the error, check it has a response object with lodash
   if (_.has(error, 'response')) {

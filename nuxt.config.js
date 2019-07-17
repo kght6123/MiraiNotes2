@@ -7,6 +7,7 @@ export default {
    */
   head: {
     htmlAttrs: {
+      lang: 'ja',
       prefix: 'og: http://ogp.me/ns#'
     },
     titleTemplate: '%s - サイト名',
@@ -69,7 +70,8 @@ export default {
     // },
     '~/plugins/fontawesome.js',
     '~/plugins/validate.js',
-    { src: '~plugins/bootstrap.js', ssr: false }
+    { src: '~plugins/bootstrap.js', ssr: false },
+    { src: '~/plugins/app.js', ssr: false }
   ],
   /*
    ** Nuxt.js modules

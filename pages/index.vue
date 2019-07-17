@@ -152,11 +152,11 @@
     <div class="sidebar-wrapper mw-100 w-100">
       <!-- Page Content  -->
       <main class="sidebar-content of-hidden mhv-100 hv-100 mw-100 m-0 p-0">
-        <div
+        <mirai-editor
           id="edit-section"
           class="m-0 mw-100"
           style="max-height: calc(100% - 16px);"
-        ></div>
+        ></mirai-editor>
       </main>
       <nav class="sidebar bg-light simple always mini">
         <div class="sticky-top">
@@ -243,13 +243,15 @@ import MenuSidebar from '~/components/MenuSidebar.vue'
 import FileTreeSidebar from '~/components/FileTreeSidebar.vue'
 import Login from '~/components/Login.vue'
 import DriveAuth from '~/components/DriveAuth.vue'
+import Editor from '~/components/Editor.vue'
 
 export default {
   components: {
     miraiMenu: MenuSidebar,
     miraiFileTree: FileTreeSidebar,
     miraiLogin: Login,
-    miraiDriveAuth: DriveAuth
+    miraiDriveAuth: DriveAuth,
+    miraiEditor: Editor
   },
   data() {
     return {
