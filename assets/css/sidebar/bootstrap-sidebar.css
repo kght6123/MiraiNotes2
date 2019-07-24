@@ -243,12 +243,22 @@
   }
 }
 .sidebar ul li a.active:not(.file) {
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(255, 255, 255, 0.35);
 }
 .sidebar ul li a:hover:not(.file) {
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(255, 255, 255, 0.25);
   /*text-decoration: underline;*/
-  border: solid 1px rgba(0, 0, 0, 0.25);
+  border: solid 1px rgba(255, 255, 255, 0.25);
+}
+@media (prefers-color-scheme: dark) {
+  .sidebar ul li a.active:not(.file) {
+    background: rgba(0, 0, 0, 0.35);
+  }
+  .sidebar ul li a:hover:not(.file) {
+    background: rgba(0, 0, 0, 0.25);
+    /*text-decoration: underline;*/
+    border: solid 1px rgba(0, 0, 0, 0.25);
+  }
 }
 /* サイドバー切り替えボタン用の右三角 */
 .sidebar .sidebar-toggle::after {

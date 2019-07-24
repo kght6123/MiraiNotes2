@@ -23,6 +23,24 @@ $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
 
+// ライトピンクテーマの設定
+$theme-colors: (
+  "primary": #ff9ece
+);
+.shadow-light {
+  box-shadow: 0 0.5rem 1rem rgba(255, 127, 191, 0.15) !important;
+}
+.btn-light {
+  color: #ff7fbf !important;
+}
+.btn-light.active:not(.file) {
+  background: rgba(255, 127, 191, 0.35);
+}
+.btn-light:hover:not(.file) {
+  background: rgba(255, 127, 191, 0.25);
+  border: solid 1px rgba(255, 127, 191, 0.25);
+}
+
 * {
   // 字間にゆとりを持たせる
   letter-spacing: .1em !important;

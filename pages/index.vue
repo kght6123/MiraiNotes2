@@ -155,23 +155,23 @@
         <mirai-editor
           id="edit-section"
           class="m-0 mw-100"
-          style="max-height: calc(100% - 16px);"
+          style="max-height: 100%;"
         ></mirai-editor>
       </main>
-      <nav class="sidebar bg-light simple always mini">
+      <nav class="sidebar bg-dark simple always mini pt-3">
         <div class="sticky-top">
           <ul class="list-unstyled">
             <li>
-              <a
+              <button
                 id="link-slide-mode"
                 href="#"
-                class="text-dark"
+                class="btn-dark"
                 data-url="revealjs/revealjs.html"
                 data-target="#slide-modal"
               >
                 <i class="mdi mdi-presentation" />
-                Slide Mode
-              </a>
+                <span style="font-size:0.5em;">Slide Mode</span>
+              </button>
             </li>
             <!--li>
               <a href="#" class="text-dark active">
