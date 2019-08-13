@@ -14,7 +14,7 @@ const app = express()
 
 const config = {
   dev: false,
-  buildDir: 'nuxt' //,
+  buildDir: 'nuxt' // ,
   // build: {
   //   publicPath: '/'
   // }
@@ -27,11 +27,11 @@ function handleRequest(req, res) {
     .renderRoute('/')
     .then((result) => {
       res.send(result.html)
-      return
     })
     .catch((e) => {
       res.send(e)
     })
 }
 app.get('*', handleRequest)
+// リージョン指定は、Hostingが非対応のため、不可 exports.nuxtApp = functions.region('asia-northeast1').https.onRequest(app)
 exports.nuxtApp = functions.https.onRequest(app)

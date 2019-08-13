@@ -17,7 +17,7 @@
 			"name": "Launch Program Node.js",
 			"program": "${workspaceFolder}/node_modules/nuxt/bin/nuxt",
 			"runtimeExecutable": "${workspaceFolder}/node_modules/.bin/nodemon",
-			"args": ["--watch","server"],
+			"args": ["--watch","server", "--exec", "~/.nodebrew/node/v10.16.1/bin/node"],
 			"runtimeArgs": [],
 			"env": {
 				"NODE_ENV": "development",
