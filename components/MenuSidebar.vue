@@ -90,15 +90,57 @@
 </template>
 
 <script>
+import firebase from '~/plugins/firebase' // default as firebase, db, auth
+
 export default {
+  props: {
+    // user: { type: Object, default: null },
+    gtoken: { type: String, default: null }
+  },
+  data: () => {
+    return {
+      // user: null
+    }
+  },
   // computed: {
   //   gtoken () {
   //     return this.$store.state.gtoken;
   //   },
   // },
-  props: {
-    user: { type: Object, default: null },
-    gtoken: { type: String, default: null }
+  mounted() {
+    if (process.browser) {
+      // const _this = this
+      // window.onNuxtReady((app) => {
+      //   // const app = this
+      //   console.log(
+      //     'Nuxt ready!',
+      //     this,
+      //     firebase,
+      //     app.$fireAuth,
+      //     app.$fireStore,
+      //     app.$localForage
+      //   )
+      //   firebase.auth().onAuthStateChanged(
+      //     (user) => {
+      //       console.log(`onAuthStateChanged`, user, firebase.auth().currentUser)
+      //       if (user) {
+      //         // User is signed in.
+      //         _this.user = user
+      //       } else {
+      //         // User is signed out.
+      //       }
+      //     },
+      //     (error) => {
+      //       console.log(error)
+      //     }
+      //   )
+      // })
+    }
+  },
+  methods: {
+    user() {
+      return firebase.auth().currentUser
+    }
   }
 }
 </script>

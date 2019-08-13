@@ -206,50 +206,28 @@
 // import firebaseui from 'firebaseui'
 // import firebaseConfig from '~/firebase.json'
 
+import firebase from '~/plugins/firebase' // default as firebase, db, auth
 import 'firebaseui/dist/firebaseui.css'
 
 if (process.browser) {
   window.onNuxtReady((app) => {
-    console.log('Nuxt ready!', app.$fireAuth, app.$fireStore)
-    // Require.
-    const firebaseui = require('firebaseui')
-    // // Firebase config.
-    // if (!firebase.apps.length) {
-    //   // Initialize Firebase
-    //   firebase.initializeApp(firebaseConfig)
-    // }
-    // FirebaseUI config.
-    const uiConfig = {
-      signInSuccessUrl: '/',
-      signInOptions: [
-        // Leave the lines as is for the providers you want to offer your users.
-        app.$fireAuthObj.GoogleAuthProvider.PROVIDER_ID,
-        // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-        // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-        app.$fireAuthObj.GithubAuthProvider.PROVIDER_ID,
-        app.$fireAuthObj.EmailAuthProvider.PROVIDER_ID
-        // firebase.auth.PhoneAuthProvider.PROVIDER_ID,
-        // firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
-      ]
-      // tosUrl and privacyPolicyUrl accept either url string or a callback
-      // function.
-      // Terms of service url/callback.
-      // tosUrl: '<your-tos-url>',
-      // Privacy policy url/callback.
-      // privacyPolicyUrl: function() {
-      //   window.location.assign('<your-privacy-policy-url>')
-      // }
-    }
-    // Initialize the FirebaseUI Widget using Firebase.
-    const ui = new firebaseui.auth.AuthUI(app.$fireAuth)
-    // if (ui.isPendingRedirect()) {
-    // The start method will wait until the DOM is loaded.
-    ui.start('#firebaseui-auth-container', uiConfig)
-    // }
-    app.$fireAuth.onAuthStateChanged(
+    // const app = this
+    console.log(
+      'Nuxt ready!',
+      this,
+      firebase,
+      app.$fireAuth,
+      app.$fireStore,
+      app.$localForage
+    )
+    firebase.auth().onAuthStateChanged(
       (user) => {
+        console.log(`onAuthStateChanged`, user, firebase.auth().currentUser)
         if (user) {
           // User is signed in.
+          // app.$localForage.setItem(`user`, user).then((rs) => {
+          //   console.log(`result $localForage.setItem`, rs)
+          // })
           // const displayName = user.displayName
           // const email = user.email
           // const emailVerified = user.emailVerified
@@ -258,6 +236,7 @@ if (process.browser) {
           // const phoneNumber = user.phoneNumber
           // const providerData = user.providerData
           user.getIdToken().then((accessToken) => {
+            console.log(`accessToken`, accessToken)
             // document.getElementById('sign-in-status').textContent = 'Signed in'
             // document.getElementById('sign-in').textContent = 'Sign out'
             // document.getElementById(
@@ -288,6 +267,61 @@ if (process.browser) {
         console.log(error)
       }
     )
+    // Require.
+    const firebaseui = require('firebaseui')
+    // // Firebase config.
+    // if (!firebase.apps.length) {
+    //   // Initialize Firebase
+    //   firebase.initializeApp(firebaseConfig)
+    // }
+    // FirebaseUI config.
+    const uiConfig = {
+      callbacks: {
+        signInSuccessWithAuthResult: (authResult, redirectUrl) => {
+          // User successfully signed in.
+          // Return type determines whether we continue the redirect automatically
+          // or whether we leave that to developer to handle.
+          console.log(`sign in success result`, authResult, redirectUrl)
+          return false
+        }
+        // uiShown: () => {
+        // The widget is rendered.
+        // Hide the loader.
+        // document.getElementById('loader').style.display = 'none'
+        // }
+        // signInSuccess(currentUser, credential, redirectUrl)
+        // signInFailure(error)
+      },
+      signInFlow: 'popup',
+      signInSuccessUrl: '/',
+      signInOptions: [
+        // Leave the lines as is for the providers you want to offer your users.
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+        // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+        firebase.auth.GithubAuthProvider.PROVIDER_ID,
+        firebase.auth.EmailAuthProvider.PROVIDER_ID
+        // firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+        // firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
+      ]
+      // tosUrl and privacyPolicyUrl accept either url string or a callback
+      // function.
+      // Terms of service url/callback.
+      // tosUrl: '<your-tos-url>',
+      // Privacy policy url/callback.
+      // privacyPolicyUrl: function() {
+      //   window.location.assign('<your-privacy-policy-url>')
+      // }
+    }
+    // Initialize the FirebaseUI Widget using Firebase.
+    // const ui = new firebaseui.auth.AuthUI(app.$fireAuth)
+    const ui =
+      firebaseui.auth.AuthUI.getInstance() ||
+      new firebaseui.auth.AuthUI(firebase.auth())
+    // if (ui.isPendingRedirect()) {
+    // The start method will wait until the DOM is loaded.
+    ui.start('#firebaseui-auth-container', uiConfig)
+    // }
   })
 }
 
@@ -403,13 +437,6 @@ export default {
   props: {
     // user: { type: Object, default: null }
   },
-  // created() {
-  //   // メッセージを日本語に設定する
-  //   this.$validator.localize('ja');
-  //   // Cookieに保存されていた情報を取得する
-  //   this.email = Cookies.get("email");
-  //   this.password = Cookies.get("password");
-  // },
   data: () => {
     return {
       // name: null,
@@ -418,6 +445,17 @@ export default {
       // password_confirmation: null,
       // save: true,
       // regist: false
+    }
+  },
+  created() {
+    //   // メッセージを日本語に設定する
+    //   this.$validator.localize('ja');
+    //   // Cookieに保存されていた情報を取得する
+    //   this.email = Cookies.get("email");
+    //   this.password = Cookies.get("password");
+  },
+  mounted() {
+    if (process.browser) {
     }
   },
   methods: {

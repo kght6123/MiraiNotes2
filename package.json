@@ -33,7 +33,6 @@
     "firebaseui": "4.1.0",
     "jquery": "^3.4.1",
     "nuxt": "^2.0.0",
-    "nuxt-fire": "^2.0.0",
     "open-iconic": "^1.1.1",
     "popper.js": "^1.15.0",
     "tui-editor": "^1.4.4-alpha.0",

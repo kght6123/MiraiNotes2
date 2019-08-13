@@ -1,5 +1,5 @@
 const webpack = require('webpack')
-const firebaseConfig = require('./firebase.app.json')
+// const firebaseConfig = require('./firebase.app.json')
 
 export default {
   mode: 'universal',
@@ -69,10 +69,11 @@ export default {
     //   src: '~/plugins/localStorage.js',
     //   ssr: false
     // },
-    '~/plugins/fontawesome.js',
-    '~/plugins/validate.js',
-    { src: '~plugins/bootstrap.js', ssr: false },
-    { src: '~/plugins/app.js', ssr: false }
+    { src: '~/plugins/fontawesome.js', ssr: false },
+    { src: '~/plugins/validate.js', ssr: false },
+    { src: '~/plugins/bootstrap.js', ssr: false },
+    { src: '~/plugins/app.js', ssr: false },
+    { src: '~/plugins/firebase.js', ssr: false }
   ],
   /*
    ** Nuxt.js modules
@@ -86,18 +87,18 @@ export default {
     '@nuxtjs/eslint-module',
     '@nuxtjs/style-resources',
     // Doc: https://github.com/nuxt-community/localforage-module
-    '@nuxtjs/localforage',
-    [
-      'nuxt-fire',
-      {
-        config: {
-          development: firebaseConfig,
-          production: firebaseConfig
-        },
-        useOnly: ['auth', 'firestore'], // ,'functions','storage','realtimeDb', 'messaging', 'performance'
-        customEnv: false
-      }
-    ]
+    '@nuxtjs/localforage' // ,
+    // [
+    //   'nuxt-fire',
+    //   {
+    //     config: {
+    //       development: firebaseConfig,
+    //       production: firebaseConfig
+    //     },
+    //     useOnly: ['auth', 'firestore'], // ,'functions','storage','realtimeDb', 'messaging', 'performance'
+    //     customEnv: false
+    //   }
+    // ]
   ],
   bootstrapVue: {
     bootstrapCSS: false, // Or `css: false`

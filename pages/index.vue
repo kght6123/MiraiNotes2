@@ -214,7 +214,9 @@
       </nav>
       <!-- Modal Login Floating Form -->
       <form id="login">
+        <!--no-ssr placeholder="Loading..."-->
         <mirai-login :user="user" />
+        <!--/no-ssr-->
       </form>
       <!-- Modal Auth Floating Form -->
       <form id="auth">
