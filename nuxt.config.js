@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const firebaseConfig = require('./firebase.app.json')
 
 export default {
   mode: 'universal',
@@ -85,7 +86,18 @@ export default {
     '@nuxtjs/eslint-module',
     '@nuxtjs/style-resources',
     // Doc: https://github.com/nuxt-community/localforage-module
-    '@nuxtjs/localforage'
+    '@nuxtjs/localforage',
+    [
+      'nuxt-fire',
+      {
+        config: {
+          development: firebaseConfig,
+          production: firebaseConfig
+        },
+        useOnly: ['auth', 'firestore'], // ,'functions','storage','realtimeDb', 'messaging', 'performance'
+        customEnv: false
+      }
+    ]
   ],
   bootstrapVue: {
     bootstrapCSS: false, // Or `css: false`
@@ -129,5 +141,9 @@ export default {
         config.devtool = 'inline-cheap-module-source-map'
       }
     }
-  }
+  },
+  // settings deploy firebase
+  // publicPath: '/',
+  extractCSS: true,
+  buildDir: './functions/nuxt'
 }

@@ -55,59 +55,59 @@ export default (app) => {
     }
   )
 
-  window.onNuxtReady((app) => {
-    // ダークテーマの時にマッチするMediaQueryListオブジェクト
-    const mql = window.matchMedia('(prefers-color-scheme: dark)')
-    const changeTheme = (_mql) => {
-      if (_mql.matches) {
-        /* ダークテーマの時 */
-        console.log('dark theme.')
-        $('.bg-light')
-          .addClass('bg-dark')
-          .removeClass('bg-light')
-        $('.btn-light')
-          .addClass('btn-dark')
-          .removeClass('btn-light')
-        $('.bg-primary')
-          .addClass('bg-secondary')
-          .removeClass('bg-primary')
-        $('.btn-primary')
-          .addClass('btn-secondary')
-          .removeClass('btn-primary')
-        $('.shadow-light')
-          .addClass('shadow')
-          .removeClass('shadow-light')
-        $('.text-white')
-          .addClass('text-light')
-          .removeClass('text-white')
-      } else {
-        /* ライトテーマの時 */
-        console.log('light theme.')
-        $('.bg-dark')
-          .addClass('bg-light')
-          .removeClass('bg-dark')
-        $('.btn-dark')
-          .addClass('btn-light')
-          .removeClass('btn-dark')
-        $('.bg-secondary')
-          .addClass('bg-primary')
-          .removeClass('bg-secondary')
-        $('.btn-secondary')
-          .addClass('btn-primary')
-          .removeClass('btn-secondary')
-        $('.shadow')
-          .addClass('shadow-light')
-          .removeClass('shadow')
-        $('.text-light')
-          .addClass('text-white')
-          .removeClass('text-light')
-      }
-    }
-    // 初回の呼び出し
-    changeTheme(mql)
-    // イベントリスナーを追加
-    mql.addListener(changeTheme)
-  })
+  // window.onNuxtReady((app) => {
+  //   // ダークテーマの時にマッチするMediaQueryListオブジェクト
+  //   const mql = window.matchMedia('(prefers-color-scheme: dark)')
+  //   const changeTheme = (_mql) => {
+  //     if (_mql.matches) {
+  //       /* ダークテーマの時 */
+  //       console.log('dark theme.')
+  //       $('.bg-light')
+  //         .addClass('bg-dark')
+  //         .removeClass('bg-light')
+  //       $('.btn-light')
+  //         .addClass('btn-dark')
+  //         .removeClass('btn-light')
+  //       $('.bg-primary')
+  //         .addClass('bg-secondary')
+  //         .removeClass('bg-primary')
+  //       $('.btn-primary')
+  //         .addClass('btn-secondary')
+  //         .removeClass('btn-primary')
+  //       $('.shadow-light')
+  //         .addClass('shadow')
+  //         .removeClass('shadow-light')
+  //       $('.text-white')
+  //         .addClass('text-light')
+  //         .removeClass('text-white')
+  //     } else {
+  //       /* ライトテーマの時 */
+  //       console.log('light theme.')
+  //       $('.bg-dark')
+  //         .addClass('bg-light')
+  //         .removeClass('bg-dark')
+  //       $('.btn-dark')
+  //         .addClass('btn-light')
+  //         .removeClass('btn-dark')
+  //       $('.bg-secondary')
+  //         .addClass('bg-primary')
+  //         .removeClass('bg-secondary')
+  //       $('.btn-secondary')
+  //         .addClass('btn-primary')
+  //         .removeClass('btn-secondary')
+  //       $('.shadow')
+  //         .addClass('shadow-light')
+  //         .removeClass('shadow')
+  //       $('.text-light')
+  //         .addClass('text-white')
+  //         .removeClass('text-light')
+  //     }
+  //   }
+  //   // 初回の呼び出し
+  //   changeTheme(mql)
+  //   // イベントリスナーを追加
+  //   mql.addListener(changeTheme)
+  // })
 }
 
 // const updateDelegateMarkdown = function() {

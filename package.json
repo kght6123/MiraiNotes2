@@ -9,11 +9,14 @@
     "lint:fix": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "yarn lint",
     "dev": "nuxt",
-    "build": "nuxt build",
+    "build": "nuxt build && rm -R functions/public/* && cp -R functions/nuxt/dist/ functions/public && cp -R static/* functions/public && mv functions/public/client functions/public/_nuxt",
     "start": "nuxt start",
     "run": "nuxt build && nuxt start",
     "generate": "nuxt generate",
     "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup"
+  },
+  "engines": {
+    "node": "10"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
@@ -26,10 +29,11 @@
     "@nuxtjs/style-resources": "^0.1.2",
     "bootstrap": "^4.1.3",
     "bootstrap-vue": "^2.0.0-rc.11",
-    "firebase": "^6.2.3",
-    "firebaseui": "^4.0.0",
+    "firebase": "6.3.4",
+    "firebaseui": "4.1.0",
     "jquery": "^3.4.1",
     "nuxt": "^2.0.0",
+    "nuxt-fire": "^2.0.0",
     "open-iconic": "^1.1.1",
     "popper.js": "^1.15.0",
     "tui-editor": "^1.4.4-alpha.0",

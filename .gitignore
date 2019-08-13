@@ -93,4 +93,4 @@ env.*.local.js
 
 # private_key, api_key files
 firebase.admin.json
-firebase.json
+firebase.app.json

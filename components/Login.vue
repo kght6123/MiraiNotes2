@@ -197,37 +197,37 @@
 
 <script>
 // Firebase App (the core Firebase SDK) is always required and must be listed first
-import * as firebase from 'firebase/app'
+// import * as firebase from 'firebase/app'
 
 // Add the Firebase products that you want to use
-import 'firebase/auth'
-import 'firebase/database'
+// import 'firebase/auth'
+// import 'firebase/database'
 
 // import firebaseui from 'firebaseui'
-import firebaseConfig from '~/firebase.json'
+// import firebaseConfig from '~/firebase.json'
 
 import 'firebaseui/dist/firebaseui.css'
 
 if (process.browser) {
   window.onNuxtReady((app) => {
-    console.log('Nuxt ready!')
+    console.log('Nuxt ready!', app.$fireAuth, app.$fireStore)
     // Require.
     const firebaseui = require('firebaseui')
-    // Firebase config.
-    if (!firebase.apps.length) {
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig)
-    }
+    // // Firebase config.
+    // if (!firebase.apps.length) {
+    //   // Initialize Firebase
+    //   firebase.initializeApp(firebaseConfig)
+    // }
     // FirebaseUI config.
     const uiConfig = {
       signInSuccessUrl: '/',
       signInOptions: [
         // Leave the lines as is for the providers you want to offer your users.
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        app.$fireAuthObj.GoogleAuthProvider.PROVIDER_ID,
         // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
         // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-        firebase.auth.GithubAuthProvider.PROVIDER_ID,
-        firebase.auth.EmailAuthProvider.PROVIDER_ID
+        app.$fireAuthObj.GithubAuthProvider.PROVIDER_ID,
+        app.$fireAuthObj.EmailAuthProvider.PROVIDER_ID
         // firebase.auth.PhoneAuthProvider.PROVIDER_ID,
         // firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
       ]
@@ -241,12 +241,12 @@ if (process.browser) {
       // }
     }
     // Initialize the FirebaseUI Widget using Firebase.
-    const ui = new firebaseui.auth.AuthUI(firebase.auth())
+    const ui = new firebaseui.auth.AuthUI(app.$fireAuth)
     // if (ui.isPendingRedirect()) {
     // The start method will wait until the DOM is loaded.
     ui.start('#firebaseui-auth-container', uiConfig)
     // }
-    firebase.auth().onAuthStateChanged(
+    app.$fireAuth.onAuthStateChanged(
       (user) => {
         if (user) {
           // User is signed in.
