@@ -3,15 +3,15 @@
     <div id="sidebar" class="sidebar-wrapper">
       <!-- Sidebar1  -->
       <nav id="menu" class="sidebar bg-secondary simple always">
-        <mirai-menu :user="user" />
+        <mirai-menu />
       </nav>
       <!-- Sidebar3  -->
       <nav
         id="filetree"
         class="sidebar bg-dark floating-2"
-        :class="{ 'none-toggle': !gtoken }"
+        :class="{ 'none-toggle': !isFbAuthLogin }"
       >
-        <mirai-file-tree :user="user" />
+        <mirai-file-tree />
       </nav>
       <!-- Sidebar2  -->
       <nav
@@ -215,13 +215,13 @@
       <!-- Modal Login Floating Form -->
       <form id="login">
         <!--no-ssr placeholder="Loading..."-->
-        <mirai-login :user="user" />
+        <mirai-login />
         <!--/no-ssr-->
       </form>
-      <!-- Modal Auth Floating Form -->
+      <!-- Modal Auth Floating Form
       <form id="auth">
         <mirai-drive-auth :user="user" :auth-url="authUrl" :gtoken="gtoken" />
-      </form>
+      </form> -->
     </div>
   </div>
   <!--
@@ -244,22 +244,25 @@ import { mapMutations } from 'vuex'
 import MenuSidebar from '~/components/MenuSidebar.vue'
 import FileTreeSidebar from '~/components/FileTreeSidebar.vue'
 import Login from '~/components/Login.vue'
-import DriveAuth from '~/components/DriveAuth.vue'
+// import DriveAuth from '~/components/DriveAuth.vue'
 import Editor from '~/components/Editor.vue'
+
+import fireauth from '~/assets/js/mixins/utils/fireauth'
 
 export default {
   components: {
     miraiMenu: MenuSidebar,
     miraiFileTree: FileTreeSidebar,
     miraiLogin: Login,
-    miraiDriveAuth: DriveAuth,
+    // miraiDriveAuth: DriveAuth,
     miraiEditor: Editor
   },
+  mixins: [fireauth],
   data() {
     return {
-      gtoken: 'null',
-      user: null,
-      authUrl: null
+      // gtoken: 'null',
+      // user: null,
+      // authUrl: null
     }
   },
   methods: {

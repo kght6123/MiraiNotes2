@@ -72,8 +72,7 @@ export default {
     { src: '~/plugins/fontawesome.js', ssr: false },
     { src: '~/plugins/validate.js', ssr: false },
     { src: '~/plugins/bootstrap.js', ssr: false },
-    { src: '~/plugins/app.js', ssr: false },
-    { src: '~/plugins/firebase.js', ssr: false }
+    { src: '~/plugins/app.js', ssr: false }
   ],
   /*
    ** Nuxt.js modules

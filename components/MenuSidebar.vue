@@ -12,16 +12,16 @@
           <i class="oi oi-person" /><i
             class="mdi mdi-tr font-weight-bold"
             :class="{
-              'mdi-check-circle': user,
-              'text-success': user,
-              'mdi-close-circle': !user,
-              'text-danger': !user
+              'mdi-check-circle': isFbAuthLogin,
+              'text-success': isFbAuthLogin,
+              'mdi-close-circle': !isFbAuthLogin,
+              'text-danger': !isFbAuthLogin
             }"
           />
           ログイン
         </a>
       </li>
-      <li>
+      <!--li>
         <a
           id="link-login-google"
           href="#"
@@ -41,7 +41,7 @@
           />
           Google
         </a>
-      </li>
+      </li-->
       <li>
         <nuxt-link to="/" class="text-light active" no-prefetch>
           <i class="oi oi-home" />
@@ -52,13 +52,27 @@
         <a
           href="#"
           class="text-light sidebar-toggle"
-          :class="{ 'd-none': !gtoken, 'reserve active': gtoken }"
+          :class="{
+            'd-none': !isFbAuthLogin,
+            'reserve active': isFbAuthLogin
+          }"
           data-target="#filetree"
         >
           <i class="mdi mdi-folder-multiple-outline" />
           フォルダ
         </a>
       </li>
+      <!--li>
+        <a
+          href="#"
+          class="text-light sidebar-toggle"
+          :class="{ 'd-none': !gtoken, 'reserve active': gtoken }"
+          data-target="#filetree"
+        >
+          <i class="mdi mdi-folder-multiple-outline" />
+          フォルダ
+        </a>
+      </li-->
       <!--li>
         <a href="#" class="text-light sidebar-toggle" data-target="#headline">
           <i class="oi oi-list"></i>
@@ -90,12 +104,13 @@
 </template>
 
 <script>
-import firebase from '~/plugins/firebase' // default as firebase, db, auth
+import fireauth from '~/assets/js/mixins/utils/fireauth'
 
 export default {
+  mixins: [fireauth],
   props: {
     // user: { type: Object, default: null },
-    gtoken: { type: String, default: null }
+    // gtoken: { type: String, default: null }
   },
   data: () => {
     return {
@@ -137,11 +152,7 @@ export default {
       // })
     }
   },
-  methods: {
-    user() {
-      return firebase.auth().currentUser
-    }
-  }
+  methods: {}
 }
 </script>
 
