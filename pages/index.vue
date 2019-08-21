@@ -151,7 +151,7 @@
     </div>
     <div class="sidebar-wrapper mw-100 w-100">
       <!-- Page Content  -->
-      <main class="sidebar-content of-hidden mhv-100 hv-100 mw-100 m-0 p-0">
+      <main class="sidebar-content of-hidden mw-100 m-0 p-0">
         <mirai-editor
           id="edit-section"
           class="m-0 mw-100"
@@ -165,7 +165,7 @@
               <button
                 id="link-slide-mode"
                 href="#"
-                class="btn-dark"
+                class="btn btn-dark"
                 data-url="revealjs/revealjs.html"
                 data-target="#slide-modal"
               >

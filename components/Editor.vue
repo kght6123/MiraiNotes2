@@ -11,6 +11,9 @@ export default {
   },
   mounted() {
     const _this = this
+    this.$nextTick(() => {
+      console.log('Tick!!!')
+    })
     if (process.browser) {
       window.onNuxtReady((app) => {
         console.log('Nuxt ready!', _this)
