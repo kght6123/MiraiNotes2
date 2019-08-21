@@ -59,4 +59,24 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped></style>
+<style lang="stylus">
+.CodeMirror
+  background #343a40 !important
+.tui-editor-defaultUI-toolbar
+  background #343a40 !important
+.tui-editor-defaultUI-toolbar button
+  background-color #343a40 !important
+  border 0 solid #000 !important
+.tui-toolbar-icons
+  filter brightness(1.825) invert(0) contrast(3) grayscale(1)
+.tui-editor-defaultUI .te-mode-switch-section
+  background-color #343a40 !important
+.tui-editor-defaultUI .te-switch-button.active
+  background-color #343a40 !important
+  color white !important
+.tui-editor-defaultUI .te-switch-button
+  background-color #343a40 !important
+  color gray !important
+/*body
+  background-color #343a40 !important*/
+</style>
