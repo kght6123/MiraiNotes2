@@ -4,6 +4,16 @@ const webpack = require('webpack')
 export default {
   mode: 'universal',
   /*
+   ** Custom Loading
+   ** https://ja.nuxtjs.org/api/configuration-loading
+   */
+  loading: '~/components/loading.vue',
+  // loadingIndicator: {
+  //   name: 'nuxt',
+  //   color: '#3B8070',
+  //   background: 'white'
+  // },
+  /*
    ** Headers of the page
    */
   head: {
@@ -11,7 +21,7 @@ export default {
       lang: 'ja',
       prefix: 'og: http://ogp.me/ns#'
     },
-    titleTemplate: '%s - サイト名',
+    titleTemplate: '%s - MiraiNotes',
     title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
@@ -26,10 +36,10 @@ export default {
         content: process.env.npm_package_description || 'Mirai Note Homepage.'
       },
       { name: 'author', content: 'kght6123' },
-      { hid: 'og:site_name', property: 'og:site_name', content: 'サイト名' },
+      { hid: 'og:site_name', property: 'og:site_name', content: 'MiraiNotes' },
       { hid: 'og:type', property: 'og:type', content: 'website' },
       { hid: 'og:url', property: 'og:url', content: 'https://example.com' },
-      { hid: 'og:title', property: 'og:title', content: 'サイト名' },
+      { hid: 'og:title', property: 'og:title', content: 'MiraiNotes' },
       {
         hid: 'og:description',
         property: 'og:description',
