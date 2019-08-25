@@ -2,7 +2,7 @@
   <div class="mw-100 w-100 mhv-100 hv-100 of-hidden d-flex flex-column">
     <nuxt />
     <div
-      class="sidebar-fotter bg-info mw-100 w-100 d-flex flex-row justify-content-between"
+      class="sidebar-fotter bg-dark mw-100 w-100 d-flex flex-row justify-content-between"
     >
       <div class="flex-shrink-0 text-left pl-2 text-light">
         Welcome!!!

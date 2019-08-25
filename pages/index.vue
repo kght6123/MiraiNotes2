@@ -2,7 +2,11 @@
   <div class="sidebar-wrapper">
     <div id="sidebar" class="sidebar-wrapper">
       <!-- Sidebar1  -->
-      <nav id="menu" class="sidebar bg-secondary simple always">
+      <nav
+        id="menu"
+        class="sidebar simple always"
+        style="background-color: #929CA4;"
+      >
         <mirai-menu />
       </nav>
       <!-- Sidebar3  -->
@@ -165,7 +169,7 @@
               <button
                 id="link-slide-mode"
                 href="#"
-                class="btn btn-dark"
+                class="btn btn-dark text-center p-0"
                 data-url="revealjs/revealjs.html"
                 data-target="#slide-modal"
               >
