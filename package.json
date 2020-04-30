@@ -31,7 +31,7 @@
     "bootstrap-vue": "^2.0.0-rc.28",
     "firebase": "6.4.0",
     "firebaseui": "4.1.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "nuxt": "^2.9.1",
     "open-iconic": "^1.1.1",
     "popper.js": "^1.15.0",
